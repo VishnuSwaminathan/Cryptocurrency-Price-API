@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Crypto</title>
+  <style>
+    body {
+      color: azure;
+      background-color: "black";
+    }
+  </style>
+</head>
+
+<body>
+  <form id="search">
+    <label for="crypto-input">Search for a Cryptocurrency</label>
+    <input type="text" id="crypto-input">
+    <br>
+    <!-- This button will trigger our AJAX call -->
+    <input id="search" type="submit" value="Search Cryptocurrency">
+  </form>
+  <br>
+  <script src=" https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js "></script>
+  <script type="text/javascript ">
+
+    
+    $("#search").on("click", function(event) {
+
+        var crypto = $("#crypto-input").val();
+
+    var queryURL = "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,JPY,EUR ";
+
+      $.ajax({
+        url: queryURL,
+        method: "GET "
+      }).then(function (response) {
+        
+      });
+  });
+
+  </script>
+</body>
+
+</html>
