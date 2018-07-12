@@ -5,41 +5,53 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Crypto</title>
-  <style>
-    body {
-      color: azure;
-      background-color: "black";
-    }
-  </style>
+  <title>Crypto Price Check</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+    crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
 </head>
 
 <body>
-  <form id="search">
+  <form id="search" class="container container-fluid form-group">
     <label for="crypto-input">Search for a Cryptocurrency</label>
-    <input type="text" id="crypto-input">
+    <input type="text" id="crypto-input" placeholder="BTC, ETH, LTC, etc..." />
     <br>
-    <!-- This button will trigger our AJAX call -->
-    <input id="search" type="submit" value="Search Cryptocurrency">
+    <input id="search-crypto" type="submit" value="Search Cryptocurrency" class="btn btn-primary" />
   </form>
   <br>
+  <div id="crypto-output"></div>
+
   <script src=" https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js "></script>
   <script type="text/javascript ">
 
-    
-    $("#search").on("click", function(event) {
-
-        var crypto = $("#crypto-input").val();
-
-    var queryURL = "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD,JPY,EUR ";
+    $("#search-crypto").on("click", function(event) {
+      event.preventDefault();
+      var crypto = $("#crypto-input").val().toUpperCase();
+      var test = "BTC";
+      var queryURL = "https://min-api.cryptocompare.com/data/pricemulti?fsyms="+crypto+"&tsyms=USD,CAD";
+      var cryptoValue = [];
 
       $.ajax({
         url: queryURL,
-        method: "GET "
-      }).then(function (response) {
+        method: "GET"
+      }).then(function (content) {
+        console.log("done")
+         cryptoValue = JSON.stringify(content);
+        // var cryptoValue2 = JSON.parse(content);
+         console.log(cryptoValue);
+        // console.log(cryptoValue2);
         
+        
+         $("#crypto-output").html(cryptoValue);
+
       });
-  });
+    });
 
   </script>
 </body>
