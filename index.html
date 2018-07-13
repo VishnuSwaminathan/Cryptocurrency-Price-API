@@ -33,22 +33,17 @@
     $("#search-crypto").on("click", function(event) {
       event.preventDefault();
       var crypto = $("#crypto-input").val().toUpperCase();
-      var test = "BTC";
       var queryURL = "https://min-api.cryptocompare.com/data/pricemulti?fsyms="+crypto+"&tsyms=USD,CAD";
-      var cryptoValue = [];
+
 
       $.ajax({
         url: queryURL,
         method: "GET"
-      }).then(function (content) {
-        console.log("done")
-         cryptoValue = JSON.stringify(content); 
-         console.log(cryptoValue);
-        var cryptoValue2 = JSON.parse(cryptoValue);
-         console.log(cryptoValue2.BTC.USD);
-        
-        
-         $("#crypto-output").html("Price Per 1 " + crypto + ": $" + cryptoValue2.BTC.USD + "(USD), $" + cryptoValue2.BTC.CAD + "(CAD)");
+      }).then(function (cryptoValue) {
+        //How to get the USD/CAD value, for different types of crypto currency?
+        //ORDER: Ex: BTC:{BTC:{USD:0.00, CAD:00.00}}
+      console.log(cryptoValue[crypto]); //for object within object, put second one in array of FIRST one
+         $("#crypto-output").html("Price Per 1 " + crypto + ": $" + cryptoValue[crypto].USD + "(USD), $" + cryptoValue[crypto].CAD +  "(CAD)");
 
       });
     });
